@@ -103,7 +103,6 @@ def index(request):
                         'index.html',
                         {
                             'form': form,
-                            # 'jsonTP': json.loads(jsonTP),
                             'dictReturn': dictReturn
                         },
                         context_instance=RequestContext(request)

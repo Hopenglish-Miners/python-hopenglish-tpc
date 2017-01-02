@@ -16,7 +16,15 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <p style="color:black;">The clustering for the turning point is:  {{dictReturn.cluster}}</p>
-        <p style="color:black;">The videos for this cluster that you should avoid are:  {{dictReturn.videos}}</p>
+        <p style="color:black;">The videos for this cluster that you should avoid are:  </p>
+        <ul class="list-group">
+        {% for video in dictReturn.videos %}
+
+          <div class="col-xs-3 col-md-1 alert alert-success" role="alert">
+            <a href="#" class="alert-link"> {{ video }} </a>
+          </div>
+        {% endfor %}
+        </ul>
       </div>
     </div>
   {% else %}
