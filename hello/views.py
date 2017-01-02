@@ -96,8 +96,7 @@ def index(request):
                     intVideos = []
                     for strVid in jsonTP["videos"]:
                         intVideos.append(str(strVid))
-                    # return HttpResponse(jsonTP["cluster"])
-                    # dictReturn = {"cluster": jsonTP["cluster"], "videos": jsonTP["videos"]}
+
                     dictReturn = {"cluster": jsonTP["cluster"], "videos": intVideos}
                     return render_to_response(
                         'index.html',
@@ -107,13 +106,6 @@ def index(request):
                         },
                         context_instance=RequestContext(request)
                     )
-                    # form.errors[r.raw] = ""
-
-                    # form.errors[json.loads(r.json())] = ""
-                    # url = 'http://wbsapi.withings.net/[service_name]?action=[action_name]&[parameters]'
-                    # serialized_data = urllib2.urlopen(url).read()
-
-                    # data = json.loads(serialized_data)
 
         else:
             form.errors["Form is not valid"] = ""
