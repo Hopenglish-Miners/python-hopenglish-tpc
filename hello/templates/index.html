@@ -11,6 +11,18 @@
     <h1>Turning Point Prediction</h1>
     <p> This is a Django application for inputing user behavior and predicting which videos are most likely to change his behavior to a "turning point" in which he will lose interest on the application.</p>
     <!-- Upload form. Note enctype attribute! -->
+
+  {% if dictReturn %}
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p style="color:black;">The clustering for the turning point is:  {{dictReturn.cluster}}</p>
+        <p style="color:black;">The videos for this cluster that you should avoid are:  {{dictReturn.videos}}</p>
+      </div>
+    </div>
+  {% else %}
+
+      variable is not defined
+    {% endif %}
       <form action="{% url 'index' %}" id="fileForm" method="post" enctype="multipart/form-data">
           {% csrf_token %}
           <p align="left">{{ form.non_field_errors }}</p>
