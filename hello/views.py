@@ -42,7 +42,8 @@ def index(request):
                     postId: at least one postId for the chosen video
                     score: at least one score
             """
-            videosSent = []
+            # videosSent = []
+            videosSent = {}
             if "chosenVideo" not in jsonFile.keys():
                 form.errors["chosenVideo key is not in JSON"] = ""
             else:
@@ -50,20 +51,30 @@ def index(request):
                     form.errors["Please send at least one video in the \"chosenVideo\" key "] = ""
                 else:
                     for video in jsonFile["chosenVideo"]:
-                        videosSent.append(int(video))
+                        # videosSent.append(int(video))
+                        videosSent[video] = 0
             if "listenScore" not in jsonFile.keys():
                 form.errors["listenScore key is not in JSON"] = ""
             else:
                 if len(jsonFile["listenScore"]) == 0:
                     form.errors["Please don't send an empty \"listenScore\" key "] = ""
                 else:
-                    
+                    postScores = {}
+                    for listSc in jsonFile["listenScore"]:
+                        if "postId" in listSc.keys():
+                            if "score" in listSc.keys():
+                                if listSc["postId"] in videosSent.keys():
+                                    videosSent[listSc["postId"]] = 1
+                                else:
+                                    form.errors["There is an object with postId %d that is not in the chosenVideos key" % (listSc["postId"])] = ""
+                            else:
+                                form.errors["There is an object with postId %d that has no score" % (listSc["postId"])] = ""
+                        else:
+                            form.errors["There is a listenScore item without \"postId\" key in your file"] = ""
 
-            """
-            Get all videos then checl there is score for each one
-            """
-
-
+            for key, value in videosSent.iteritems():
+                if value == 0:
+                    form.errors["The video %d has no listenScore" % key] = ""
 
         else:
             form.errors["Form is not valid"] = ""
