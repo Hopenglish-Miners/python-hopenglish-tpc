@@ -20,16 +20,14 @@
         <ul class="list-group">
         {% for video in dictReturn.videos %}
 
-          <div class="col-xs-3 col-md-1 alert alert-success" role="alert">
+          <div class="col-xs-3 col-md-1 alert alert-danger" role="alert">
             <a href="#" class="alert-link"> {{ video }} </a>
           </div>
         {% endfor %}
         </ul>
       </div>
     </div>
-  {% else %}
 
-      variable is not defined
     {% endif %}
       <form action="{% url 'index' %}" id="fileForm" method="post" enctype="multipart/form-data">
           {% csrf_token %}
