@@ -8,46 +8,163 @@
     <a href="/" class="lang-logo">
       <img src="{% static 'lang-logo.png'%}">
     </a>
-    <h1>Getting Started with Python on Heroku</h1>
-    <p>This is a sample Python application deployed to Heroku. It's a reasonably simple app - but a good foundation for understanding how to get the most out of the Heroku platform.</p>
-    <a type="button" class="btn btn-lg btn-default" href="https://devcenter.heroku.com/articles/getting-started-with-python"><span class="glyphicon glyphicon-flash"></span> Getting Started with Python</a>
-    <a type="button" class="btn btn-lg btn-primary" href="https://github.com/heroku/python-getting-started"><span class="glyphicon glyphicon-download"></span> Source on GitHub</a>
+    <h1>Turning Point Prediction</h1>
+    <p> This is a Django application for inputing user behavior and predicting which videos are most likely to change his behavior to a "turning point" in which he will lose interest on the application.</p>
+    <!-- Upload form. Note enctype attribute! -->
+      <form action="{% url 'index' %}" id="fileForm" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <p align="left">{{ form.non_field_errors }}</p>
+          <p align="left">{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
+          {% if form.errors %}
+          <div class="alert alert-danger">
+            The following errors were found:
+            {{ form.errors }}
+          </div>
+          {% endif %}
+          {% if form.docfile.errors %}
+          <div class="alert alert-danger">
+            The following errors were found in docfile:
+            {{ form.docfile.errors }}
+          </div>
+          {% endif %}
+            {{ form.docfile }}
+          <p><input class="btn btn-lg btn-default" type="submit" id="formSubmitButton" value="Upload user behavior" /></p>
+      </form>
   </div>
 </div>
 <div class="container">
   <div class="alert alert-info text-center" role="alert">
-    To deploy your own copy, and learn the fundamentals of the Heroku platform, head over to the <a href="https://devcenter.heroku.com/articles/getting-started-with-python" class="alert-link">Getting Started with Python on Heroku</a> tutorial.
+    Example of usage and useful information
   </div>
   <hr>
   <div class="row">
     <div class="col-md-6">
-      <h3><span class="glyphicon glyphicon-info-sign"></span> How this sample app works</h3>
+      <h3><span class="glyphicon glyphicon-info-sign"></span> Input a JSON for one user behavior</h3>
       <ul>
-        <li>This app was deployed to Heroku, either using Git or by using <a href="https://github.com/heroku/python-getting-started">Heroku Button</a> on the repository.</li>
-
-        <li>When Heroku received the source code, it fetched all the dependencies in the <a href="https://github.com/heroku/python-getting-started/blob/master/requirements.txt">requirements.txt file</a>, creating a deployable slug.</li>
-        <li>The platform then spins up a dyno, a lightweight container that provides an isolated environment in which the slug can be mounted and executed.</li>
-        <li>You can scale your app, manage it, and deploy over <a href="https://addons.heroku.com/">150 add-on services</a>, from the Dashboard or CLI.</li>
+        <li>The important fields to analyze are "chosenVideo" and  "listenScore", but using a format like the one provided in the studentBehavior.json will work</li>
       </ul>
+      <pre class="prettyprint lang-js">
+        {
+          "chosenVideo": [
+            3913,
+            5186,
+            4165,
+            4802,
+            5433,
+            5793
+          ],
+          "vocabularyList": [],
+          "memberId": "50644",
+          "listenScore": [
+            {
+              "postId": 3913,
+              "score": 96
+            },
+            {
+              "postId": 3913,
+              "score": 94
+            },
+            {
+              "postId": 3913,
+              "score": 96
+            },
+            {
+              "postId": 3913,
+              "score": 98
+            },
+            {
+              "postId": 3913,
+              "score": 93
+            },
+            {
+              "postId": 5186,
+              "score": 94
+            },
+            {
+              "postId": 5186,
+              "score": 98
+            },
+            {
+              "postId": 5186,
+              "score": 100
+            },
+            {
+              "postId": 4165,
+              "score": 91
+            },
+            {
+              "postId": 4802,
+              "score": 99
+            },
+            {
+              "postId": 4802,
+              "score": 92
+            },
+            {
+              "postId": 4802,
+              "score": 95
+            },
+            {
+              "postId": 4802,
+              "score": 99
+            },
+            {
+              "postId": 4802,
+              "score": 99
+            },
+            {
+              "postId": 4802,
+              "score": 83
+            },
+            {
+              "postId": 5433,
+              "score": -1
+            },
+            {
+              "postId": 5433,
+              "score": -1
+            },
+            {
+              "postId": 5433,
+              "score": -1
+            },
+            {
+              "postId": 5793,
+              "score": -1
+            },
+            {
+              "postId": 5793,
+              "score": -1
+            },
+            {
+              "postId": 5793,
+              "score": -1
+            }
+          ]
+        }
+      </pre>
     </div>
     <div class="col-md-6">
-      <h3><span class="glyphicon glyphicon-link"></span> Next Steps</h3>
-      <ul>
-        <li>If you are following the <a href="https://devcenter.heroku.com/articles/getting-started-with-python">Getting Started</a> guide, then please head back to the tutorial and follow the next steps!</li>
-        <li>If you deployed this app by deploying the Heroku Button, then in a command line shell, run:</li>
-        <ul>
-          <li><code>git clone https://github.com/heroku/python-getting-started.git</code> - this will create a local copy of the source code for the app</li>
-          <li><code>cd python-getting-started</code> - change directory into the local source code repository</li>
-          <li><code>heroku git:remote -a &lt;your-app-name></code> - associate the Heroku app with the repository</li>
-          <li>You'll now be set up to run the app locally, or <a href="https://devcenter.heroku.com/articles/getting-started-with-python#push-local-changes">deploy changes</a> to Heroku</li>
-        </ul>
-      </ul>
       <h3><span class="glyphicon glyphicon-link"></span> Helpful Links</h3>
       <ul>
+        <li><a href="https://www.hopenglish.com">HopEnglish</a></li>
         <li><a href="https://www.heroku.com/home">Heroku</a></li>
-        <li><a href="https://devcenter.heroku.com/">Heroku Dev Center</a></li>
-        <li><a href="https://devcenter.heroku.com/articles/getting-started-with-python">Getting Started with Python on Heroku</a></li>
-        <li><a href="https://devcenter.heroku.com/articles/django-app-configuration">Configuring Django Apps for Heroku</a></li>
+        <li><a href="http://json.org">JSON.org</a></li>
+
+      </ul>
+      <h3><span class="glyphicon glyphicon-info-sign"></span> About us</h3>
+      <ul>
+        <li>Members:</li>
+        <ul>
+          <li>陸辰偉</li>
+          <li>杜佳霖</li>
+          <li>楊承翰</li>
+          <li>王本立</li>
+          <li>Eduardo Salazar</li>
+          <li>Nicole Weatherburne</li>
+          <li>Ismael Noble</li>
+          <li>Victor Sanchez</li>
+        </ul>
       </ul>
     </div>
   </div> <!-- row -->
@@ -55,4 +172,5 @@
     Please do work through the Getting Started guide, even if you do know how to build such an application.  The guide covers the basics of working with Heroku, and will familiarize you with all the concepts you need in order to build and deploy your own apps.
   </div>
 </div>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 {% endblock %}
